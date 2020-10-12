@@ -14,7 +14,10 @@ const routes = [
         redirect: { name: 'Home' },
         children: [
             // 首页
-            { path: 'Home', name: 'Home', component: Home, title: '首页' }
+            { path: 'Home', name: 'Home', component: Home, title: '首页' },
+            // 
+            { path: 'a', name: 'a', component: Home, title: 'sss' },
+
         ]
     }
 ]

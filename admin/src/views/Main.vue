@@ -2,7 +2,9 @@
   <div>
     <el-container>
       <el-aside width="500">
-        <aside-el :collapse="isCollapse"></aside-el>
+        <!-- 侧边导航 -->
+        <aside-el :collapse="isCollapse" :routes="routesData"></aside-el>
+        <!-- <nav-menu :collapse="isCollapse"></nav-menu> -->
       </el-aside>
       <el-container>
         <el-header>
@@ -20,14 +22,48 @@
 
 <script>
 import AsideEl from '@/components/element/AsideEl'; // 引入基于element重新封装的菜单组件
+import routes from '@/router/routes'; // 引入路由
+
 export default {
   components: {
     AsideEl
   },
   data() {
     return {
-      isCollapse: true
+      isCollapse: false,
+      menu: [
+        {
+          path: '/Home',
+          name: 'Home',
+          title: '主界面'
+        },
+        // 主界面
+        {
+          path: '/Main',
+          name: 'Main',
+          title: 'Main',
+          redirect: { name: 'Home' },
+          children: [
+            // 首页
+            { path: 'Home', name: 'Home', title: '首页' },
+            { path: 'Home', name: 'A', title: '首页' },
+            { path: 'Home', name: 'V', title: '首页' }
+          ]
+        }
+      ]
     };
+  },
+  computed: {
+    routesData() {
+      let menu = [];
+      for (let i = 0; i < routes.length; i++) {
+        if (routes[i].name == 'Main') {
+          menu = routes[i].children;
+          break;
+        }
+      }
+      return menu;
+    }
   }
 };
 </script>
